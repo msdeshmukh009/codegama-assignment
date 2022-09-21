@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/products/helpers/getAllProducts";
-import { updateFilters } from "../features/products/productsSlice";
 import { filterProducts } from "../utils";
-import { Link } from "react-router-dom";
+import { Footer, Header } from "../common";
+import { Filters, ProductCard } from "../features";
 
 export const ProductListing = () => {
   const dispatch = useDispatch();
   const {
-    productsData: { products, appliedFilters },
+    productsData: { products, appliedFilters, minRating },
   } = useSelector(state => state);
 
   useEffect(() => {
@@ -17,33 +17,23 @@ export const ProductListing = () => {
 
   const availableCategories = [...new Set(products.map(product => product.category))];
 
-  const handleCheckBox = e => {
-    const { name } = e.target;
-
-    dispatch(updateFilters(name));
-  };
-
-  const filteredList = filterProducts(appliedFilters, products);
+  const filteredList = filterProducts(appliedFilters, minRating, products);
 
   return (
-    <div className="App">
-      <div>
-        <h1>Filters</h1>
-        {availableCategories.map(category => (
-          <label key={category}>
-            {category}
-            <input type="checkbox" name={category} onChange={handleCheckBox} />
-          </label>
-        ))}
+    <div className="flex flex-col justify-between min-h-screen">
+      <Header />
+
+      <div className="flex gap-4 p-4 min-h-screen items-start">
+        <Filters availableCategories={availableCategories} />
+
+        <div className="flex gap-2 flex-wrap justify-center">
+          {filteredList.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
-      <div>
-        {filteredList.map(({ id, title, category }) => (
-          <h1 key={id}>
-            <Link to={`products/${id}`}>{title}</Link>
-            {category}
-          </h1>
-        ))}
-      </div>
+
+      <Footer />
     </div>
   );
 };

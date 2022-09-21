@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   error: "",
   appliedFilters: [],
+  minRating: 1,
 };
 
 const extraReducers = {
@@ -38,10 +39,18 @@ const productsSlice = createSlice({
         state.appliedFilters.push(payload);
       }
     },
+    updateMinRating: (state, { payload }) => {
+      state.minRating = payload;
+    },
+    clearFilter: state => {
+      state.appliedFilters = [];
+      state.minRating = 1;
+    },
   },
+
   extraReducers,
 });
 
-export const { updateFilters } = productsSlice.actions;
+export const { updateFilters, updateMinRating, clearFilter } = productsSlice.actions;
 
 export default productsSlice.reducer;
