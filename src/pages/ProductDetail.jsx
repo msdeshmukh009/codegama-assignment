@@ -8,7 +8,7 @@ import { findSingleProduct } from "../features/products/productsSlice";
 
 export const ProductDetail = () => {
   const {
-    productsData: { products, singleProduct },
+    productsData: { products, singleProduct, isLoading, error },
   } = useSelector(state => state);
   const dispatch = useDispatch();
   const { productId } = useParams();
@@ -25,30 +25,35 @@ export const ProductDetail = () => {
     <div className="flex flex-col min-h-screen justify-between">
       <Header />
       <section className="text-gray-600 my-auto">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <img
-              alt={singleProduct?.title}
-              className="lg:w-1/2 object-contain w-full max-h-96 rounded"
-              src={singleProduct?.image}
-            />
-            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {singleProduct?.title}
-              </h1>
+        <p className="text-red-500 text-center w-full">{error ? error : null}</p>
+        <p className="text-center w-full">{isLoading ? "Loading...." : null}</p>
 
-              <Rating rating={singleProduct?.rating} />
+        {isLoading ? null : (
+          <div className="container px-5 py-24 mx-auto">
+            <div className="lg:w-4/5 mx-auto flex flex-wrap">
+              <img
+                alt={singleProduct?.title}
+                className="lg:w-1/2 object-contain w-full max-h-96 rounded"
+                src={singleProduct?.image}
+              />
+              <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                  {singleProduct?.title}
+                </h1>
 
-              <p className="leading-relaxed">{singleProduct?.description}</p>
+                <Rating rating={singleProduct?.rating} />
 
-              <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">
-                  ${singleProduct?.price}
-                </span>
+                <p className="leading-relaxed">{singleProduct?.description}</p>
+
+                <div className="flex">
+                  <span className="title-font font-medium text-2xl text-gray-900">
+                    ${singleProduct?.price}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
       <Footer />
     </div>

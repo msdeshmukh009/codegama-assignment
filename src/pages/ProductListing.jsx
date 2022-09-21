@@ -8,7 +8,7 @@ import { Filters, ProductCard } from "../features";
 export const ProductListing = () => {
   const dispatch = useDispatch();
   const {
-    productsData: { products, appliedFilters, minRating },
+    productsData: { products, appliedFilters, minRating, isLoading, error },
   } = useSelector(state => state);
 
   useEffect(() => {
@@ -23,10 +23,13 @@ export const ProductListing = () => {
     <div className="flex flex-col justify-between min-h-screen">
       <Header />
 
-      <div className="flex gap-4 p-4 min-h-screen items-start">
+      <div className="flex gap-6 p-4 min-h-screen items-start">
         <Filters availableCategories={availableCategories} />
 
-        <div className="flex gap-2 flex-wrap justify-center">
+        <div className="flex gap-2 flex-wrap justify-center sm:justify-start w-full">
+          <p className="text-red-500 text-center w-full">{error ? error : null}</p>
+          <p className="text-center w-full">{isLoading ? "Loading...." : null}</p>
+
           {filteredList.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}

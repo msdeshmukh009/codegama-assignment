@@ -21,7 +21,7 @@ export const Filters = ({ availableCategories }) => {
   };
 
   return (
-    <div className="min-w-[200px]">
+    <div className="sm:block min-w-[200px] hidden p-2">
       <div className="flex justify-between mb-2">
         <h1 className="text-lg font-bold text-center">Filters</h1>
         <button onClick={handleClearFilter} className="text-xs">
