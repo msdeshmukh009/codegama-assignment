@@ -1,0 +1,1 @@
+export { filterProducts } from "./filterMethods";
