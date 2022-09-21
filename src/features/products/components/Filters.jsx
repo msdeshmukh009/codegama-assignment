@@ -32,7 +32,7 @@ export const Filters = ({ availableCategories }) => {
       <div className="flex flex-col gap-2 mb-4">
         <h2 className="text-md font-semibold underline">Categories</h2>
         {availableCategories.map(category => (
-          <label className="flex items-center gap-2 cursor-pointer" key={category}>
+          <label key={category} className="flex items-center gap-2 cursor-pointer">
             <input
               className="w-4 h-4"
               type="checkbox"
@@ -48,7 +48,7 @@ export const Filters = ({ availableCategories }) => {
       <div className="flex flex-col gap-2 mb-4">
         <h2 className="text-md font-semibold underline">Rating</h2>
         {[4, 3, 2, 1].map(num => (
-          <label className="flex items-center gap-2 cursor-pointer">
+          <label key={num} className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"
               className="w-4 h-4"

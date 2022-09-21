@@ -5,6 +5,7 @@ export const Rating = ({ rating, hideCount }) => {
         {[1, 2, 3, 4, 5].map(num =>
           num <= Math.round(rating?.rate) ? (
             <svg
+              key={num}
               fill="currentColor"
               stroke="currentColor"
               strokeLinecap="round"
@@ -17,6 +18,7 @@ export const Rating = ({ rating, hideCount }) => {
             </svg>
           ) : (
             <svg
+              key={num}
               fill="none"
               stroke="currentColor"
               strokeLinecap="round"
