@@ -1,5 +1,4 @@
 export const Rating = ({ rating, hideCount }) => {
-  console.log(Math.round(rating.rate));
   return (
     <div className="flex mb-4">
       <span className="flex items-center">

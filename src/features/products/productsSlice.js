@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllProducts } from "./helpers/getAllProducts";
+import { getAllProducts, getProduct } from "./helpers";
 
 const initialState = {
   products: [],
+  singleProduct: {},
   isLoading: false,
   error: "",
   appliedFilters: [],
@@ -21,6 +22,20 @@ const extraReducers = {
   },
 
   [getAllProducts.rejected]: (state, { payload }) => {
+    state.isLoading = false;
+    state.error = payload;
+  },
+  [getProduct.pending]: state => {
+    state.error = "";
+    state.isLoading = true;
+  },
+
+  [getProduct.fulfilled]: (state, { payload }) => {
+    state.isLoading = false;
+    state.singleProduct = payload;
+  },
+
+  [getProduct.rejected]: (state, { payload }) => {
     state.isLoading = false;
     state.error = payload;
   },
@@ -46,11 +61,15 @@ const productsSlice = createSlice({
       state.appliedFilters = [];
       state.minRating = 1;
     },
+    findSingleProduct: (state, { payload }) => {
+      state.singleProduct = state.products.find(product => product.id === payload);
+    },
   },
 
   extraReducers,
 });
 
-export const { updateFilters, updateMinRating, clearFilter } = productsSlice.actions;
+export const { updateFilters, updateMinRating, clearFilter, findSingleProduct } =
+  productsSlice.actions;
 
 export default productsSlice.reducer;
