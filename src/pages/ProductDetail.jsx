@@ -15,8 +15,10 @@ export const ProductDetail = () => {
 
   useEffect(() => {
     if (!products.length) {
+      // fetch the individual product if products are not available
       dispatch(getProduct({ productId }));
     } else {
+      // find from the existing array of products
       dispatch(findSingleProduct(Number(productId)));
     }
   }, [products, productId, dispatch]);
@@ -24,6 +26,7 @@ export const ProductDetail = () => {
   return (
     <div className="flex flex-col min-h-screen justify-between">
       <Header />
+
       <section className="text-gray-600 my-auto">
         <p className="text-red-500 text-center w-full">{error ? error : null}</p>
         <p className="text-center w-full">{isLoading ? "Loading...." : null}</p>
@@ -45,7 +48,7 @@ export const ProductDetail = () => {
 
                 <p className="leading-relaxed">{singleProduct?.description}</p>
 
-                <div className="flex">
+                <div className="flex mt-2">
                   <span className="title-font font-medium text-2xl text-gray-900">
                     ${singleProduct?.price}
                   </span>
@@ -55,6 +58,7 @@ export const ProductDetail = () => {
           </div>
         )}
       </section>
+
       <Footer />
     </div>
   );
