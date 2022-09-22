@@ -1,15 +1,23 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { capitalizeFirstLetter } from "../../../utils";
 import { Rating } from "./Rating";
 
 const ProductCard = ({ product }) => {
   const { image, id, title, category, price, rating } = product;
+  const navigate = useNavigate();
+
+  const navigateToProductPage = () => {
+    navigate(`products/${id}`);
+  };
 
   return (
-    <div className="lg:w-1/4 md:w-1/2 p-4 w-full max-w-[15rem] min-w-[15rem] flex flex-col justify-between border-2 border-gray-200 rounded-md">
-      <Link to={`products/${id}`} className="flex flex-1 items-center rounded max-h-60">
-        <img alt="ecommerce" className="w-full h-full object-contain" src={image} />
-      </Link>
+    <div
+      onClick={navigateToProductPage}
+      className="lg:w-1/4 md:w-1/2 p-4 w-full max-w-[15rem] min-w-[15rem] cursor-pointer flex flex-col justify-between border-2 border-gray-200 rounded-md"
+    >
+      <div className="flex flex-1 items-center rounded max-h-60">
+        <img alt={title} className="w-full h-full object-contain" src={image} />
+      </div>
 
       <div className="mt-4">
         <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
