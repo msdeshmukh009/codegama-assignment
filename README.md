@@ -19,4 +19,4 @@
 
 ## Demo
 
-![ShopItUp-demo]()
+![ShopItUp-demo](https://res.cloudinary.com/dxebdqoxr/image/upload/v1663819581/ShopItUp_dmbits.gif)
